@@ -1,12 +1,17 @@
 import csv 
+import os
 
-file = ('D:\\Github - Cloned Repositories\\python-challenge\\PyPoll\\election_data.csv')
+#Change directory to directory containing currently running python file
+CurrentDirectory = os.path.dirname(__file__)
+os.chdir(CurrentDirectory)
+
+DataFile = ('election_data.csv')
 
 Votes = []
 CandidateVotesDict = {}
 
 #Open and read csvfile, then place all votes in "Votes" as a list.
-with open(file,'r') as csvfile:
+with open(DataFile,'r') as csvfile:
     csvreader = csv.DictReader(csvfile,delimiter=',')
 
     for row in csvreader:
@@ -31,7 +36,7 @@ print('----------------------')
 print(f'Total Votes: {len(Votes)}')
 print('----------------------')
 for votes,candidate in sorted(CandidateVotesDict.items(),reverse=True):
-    print(f'{candidate}: {int((int(votes)/TotalVotes)*100)}% ({votes})')
+    print(f'{candidate}: {(int(votes)/TotalVotes)*100}% ({votes})')
 print('----------------------')
 print(f'Winner: {Winner}')
 print('----------------------')
@@ -43,7 +48,7 @@ with open('results_PyPoll.txt','w') as text:
     text.write(f'Total Votes: {len(Votes)}\n')
     text.write('----------------------\n')
     for votes,candidate in sorted(CandidateVotesDict.items(),reverse=True):
-        text.write(f'{candidate}: {int((int(votes)/TotalVotes)*100)}% ({votes})\n')
+        text.write(f'{candidate}: {round((votes/TotalVotes)*100,2)}% ({votes})\n')
     text.write('----------------------\n')
     text.write(f'Winner: {Winner}\n')
     text.write('----------------------')

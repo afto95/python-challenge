@@ -1,6 +1,11 @@
 import csv
+import os
 
-file = 'D:\\Github - Cloned Repositories\\python-challenge\\PyBank\\budget_data.csv'
+#Change directory to directory containing currently running python file
+CurrentDirectory = os.path.dirname(__file__)
+os.chdir(CurrentDirectory)
+
+DataFile = 'budget_data.csv'
 
 #Create objects which can be used later for analysis
 Dates = []
@@ -11,7 +16,7 @@ AverageChange = 0
 Profits_Dates = {}
 
 #Read csv file and fill Dates and ProfitsLosses with their respective values, also fill dictionary with profit as keys and date as values
-with open(file,'r') as csvfile:
+with open(DataFile,'r') as csvfile:
     csvreader = csv.DictReader(csvfile,delimiter=',')
 
     for row in csvreader:
@@ -55,3 +60,4 @@ with open('results_PyBank.txt','w') as text:
     text.write(f'Total: ${str(TotalProfit)}\n')
     text.write(f'Greatest Increase in Profits: {Profits_Dates[GreatestIncrease]} (${GreatestIncrease})\n')
     text.write(f'Greatest Increase in Profits: {Profits_Dates[GreatestDecrease]} (${GreatestDecrease})\n')
+
